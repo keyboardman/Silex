@@ -13,6 +13,7 @@ namespace Silex\Provider\Session;
 
 use Pimple\Container;
 use Symfony\Component\HttpKernel\EventListener\SessionListener as BaseSessionListener;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Sets the session in the request.
@@ -28,10 +29,10 @@ class SessionListener extends BaseSessionListener
         $this->app = $app;
     }
 
-    protected function getSession()
+    protected function getSession(): ?SessionInterface
     {
         if (!isset($this->app['session'])) {
-            return;
+            return null;
         }
 
         return $this->app['session'];
